@@ -12,9 +12,9 @@ import net.minecraft.util.registry.Registry;
 public class ModEntities {
     public static final EntityModelLayer SHEARED_COW_MODEL_LAYER = new EntityModelLayer(new Identifier(ShearCows.MOD_ID,
             "sheared_cow"), "main");
-    public static final EntityType<ModShearedCowEntity> SHEARED_COW = Registry.register(
+    public static final EntityType<ShearedCowEntity> SHEARED_COW = Registry.register(
         Registry.ENTITY_TYPE, new Identifier(ShearCows.MOD_ID, "sheared_cow"),
-            FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, ModShearedCowEntity::new)
+            FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, ShearedCowEntity::new)
                     .dimensions(EntityDimensions.fixed(0.9f, 1.4f))
                     .trackRangeChunks(8).build());
 }

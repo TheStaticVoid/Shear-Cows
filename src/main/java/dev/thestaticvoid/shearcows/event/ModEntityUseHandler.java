@@ -1,9 +1,10 @@
 package dev.thestaticvoid.shearcows.event;
 
 import dev.thestaticvoid.shearcows.entity.ModEntities;
-import dev.thestaticvoid.shearcows.entity.ModShearedCowEntity;
+import dev.thestaticvoid.shearcows.entity.ShearedCowEntity;
 import net.fabricmc.fabric.api.event.player.UseEntityCallback;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.passive.CowEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Items;
@@ -13,6 +14,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.EntityHitResult;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
@@ -20,7 +22,7 @@ public class ModEntityUseHandler implements UseEntityCallback {
     @Override
     public ActionResult interact(PlayerEntity player, World world, Hand hand,
                                  Entity entity, @Nullable EntityHitResult hitResult) {
-        if(entity instanceof CowEntity && !(entity instanceof ModShearedCowEntity) && !player.isSpectator()) {
+        if(entity instanceof CowEntity && !(entity instanceof ShearedCowEntity) && !player.isSpectator()) {
             if(hand == Hand.MAIN_HAND && player.getMainHandStack().isOf(Items.SHEARS)) {
                 if(!world.isClient()) {
                     shearServerSide(player, world, entity);
@@ -46,7 +48,7 @@ public class ModEntityUseHandler implements UseEntityCallback {
 
         // Currently they spawn facing north, this is the same behavior as Minecraft has.
         // The client needs to be synced with the new rotation
-        ModShearedCowEntity shearedCow = new ModShearedCowEntity(ModEntities.SHEARED_COW, world);
+        ShearedCowEntity shearedCow = new ShearedCowEntity(ModEntities.SHEARED_COW, world);
         shearedCow.copyPositionAndRotation(entity);
         shearedCow.setHealth(((CowEntity) entity).getHealth());
         if (entity.hasCustomName()) {
@@ -54,6 +56,11 @@ public class ModEntityUseHandler implements UseEntityCallback {
             shearedCow.setCustomNameVisible(entity.isCustomNameVisible());
         }
         world.spawnEntity(shearedCow);
+        Random r = Random.create();
+        ItemEntity itemEntity = entity.dropItem(Items.LEATHER, r.nextBetween(1, 2));
+        if (itemEntity != null) {
+            itemEntity.setVelocity(itemEntity.getVelocity().add(r.nextFloat() - r.nextFloat() * 0.1f, r.nextFloat() * 0.05f, (r.nextFloat() - r.nextFloat()) * 0.1f));
+        }
         entity.discard();
     }
 

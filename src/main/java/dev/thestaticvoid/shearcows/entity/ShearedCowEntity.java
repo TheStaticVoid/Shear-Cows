@@ -1,18 +1,19 @@
 package dev.thestaticvoid.shearcows.entity;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.passive.CowEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
-public class ModShearedCowEntity extends CowEntity {
-    public ModShearedCowEntity(EntityType<? extends CowEntity> entityType, World world) {
+public class ShearedCowEntity extends CowEntity {
+    public ShearedCowEntity(EntityType<? extends CowEntity> entityType, World world) {
         super(entityType, world);
     }
 
@@ -21,11 +22,6 @@ public class ModShearedCowEntity extends CowEntity {
 
     public static DefaultAttributeContainer setAttributes() {
            return CowEntity.createCowAttributes().build();
-    }
-
-    @Override
-    public void copyPositionAndRotation(Entity entity) {
-        super.copyPositionAndRotation(entity);
     }
 
     @Override
@@ -43,6 +39,45 @@ public class ModShearedCowEntity extends CowEntity {
     }
 
     @Override
+    public void copyPositionAndRotation(Entity entity) {
+        super.copyPositionAndRotation(entity);
+    }
+
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return super.getAmbientSound();
+    }
+
+    @Override
+    protected SoundEvent getHurtSound(DamageSource source) {
+        return super.getHurtSound(source);
+    }
+
+    @Override
+    protected SoundEvent getDeathSound() {
+        return super.getDeathSound();
+    }
+
+    @Override
+    protected float getSoundVolume() {
+        return super.getSoundVolume();
+    }
+
+    @Override
+    protected float getActiveEyeHeight(EntityPose pose, EntityDimensions dimensions) {
+        return super.getActiveEyeHeight(pose, dimensions);
+    }
+
+    @Override
+    public void handleStatus(byte status) {
+        if (status == EntityStatuses.SET_SHEEP_EAT_GRASS_TIMER_OR_PRIME_TNT_MINECART) {
+            this.eatGrassTimer = 40;
+        } else {
+            super.handleStatus(status);
+        }
+    }
+
+    @Override
     protected void mobTick() {
         this.eatGrassTimer = this.eatGrassGoal.getTimer();
         super.mobTick();
@@ -56,7 +91,6 @@ public class ModShearedCowEntity extends CowEntity {
         super.tickMovement();
     }
 
-    // Stolen from SheepEntity class
     public float getNeckAngle(float delta) {
         if (this.eatGrassTimer <= 0) {
             return 0.0f;
@@ -85,18 +119,19 @@ public class ModShearedCowEntity extends CowEntity {
     public void onEatingGrass() {
         super.onEatingGrass();
 
-//        if (!this.isBaby()) {
-//            CowEntity cow = new CowEntity(EntityType.COW, world);
-//            cow.copyPositionAndRotation(this);
-//            cow.setHealth(this.getHealth());
-//            if (this.hasCustomName()) {
-//                cow.setCustomName(this.getCustomName());
-//                cow.setCustomNameVisible(this.isCustomNameVisible());
-//            }
-//            world.spawnEntity(cow);
-//            this.discard();
-//        } else {
-//            this.growUp(60);
-//        }
+        // Animation is not currently played for the conversion
+        if (!this.isBaby()) {
+            CowEntity cow = new CowEntity(EntityType.COW, world);
+            cow.copyPositionAndRotation(this);
+            cow.setHealth(this.getHealth());
+            if (this.hasCustomName()) {
+                cow.setCustomName(this.getCustomName());
+                cow.setCustomNameVisible(this.isCustomNameVisible());
+            }
+            world.spawnEntity(cow);
+            this.discard();
+        } else {
+            this.growUp(60);
+        }
     }
 }

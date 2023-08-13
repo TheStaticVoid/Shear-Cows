@@ -1,5 +1,6 @@
 package dev.thestaticvoid.shearcows.client.render.entity.model;
 
+import dev.thestaticvoid.shearcows.entity.ShearedCowEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.ModelData;
@@ -13,9 +14,10 @@ import net.minecraft.client.render.entity.model.QuadrupedEntityModel;
 import net.minecraft.entity.Entity;
 
 @Environment(value=EnvType.CLIENT)
-public class ModShearedCowEntityModel<T extends Entity>
+public class ShearedCowEntityModel<T extends Entity>
         extends QuadrupedEntityModel<T> {
-    public ModShearedCowEntityModel(ModelPart root) {
+    private float headPitchModifier;
+    public ShearedCowEntityModel(ModelPart root) {
         super(root, false, 10.0f, 4.0f, 2.0f, 2.0f, 24);
     }
     public static TexturedModelData getTexturedModelData() {
@@ -32,7 +34,16 @@ public class ModShearedCowEntityModel<T extends Entity>
         return TexturedModelData.of(modelData, 64, 32);
     }
 
-    public ModelPart getHead() {
-        return this.head;
+    @Override
+    public void animateModel(T entity, float limbAngle, float limbDistance, float tickDelta) {
+        super.animateModel(entity, limbAngle, limbDistance, tickDelta);
+        this.head.pivotY = 6.0f + ((ShearedCowEntity) entity).getNeckAngle(tickDelta) * 9.0f;
+        this.headPitchModifier = ((ShearedCowEntity) entity).getHeadAngle(tickDelta);
+    }
+
+    @Override
+    public void setAngles(T entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
+        super.setAngles(entity, limbAngle, limbDistance, animationProgress, headYaw, headPitch);
+        this.head.pitch = this.headPitchModifier;
     }
 }

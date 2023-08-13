@@ -1,7 +1,7 @@
 package dev.thestaticvoid.shearcows;
 
 import dev.thestaticvoid.shearcows.entity.ModEntities;
-import dev.thestaticvoid.shearcows.entity.ModShearedCowEntity;
+import dev.thestaticvoid.shearcows.entity.ShearedCowEntity;
 import dev.thestaticvoid.shearcows.event.ModEntityUseHandler;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.player.UseEntityCallback;
@@ -15,7 +15,7 @@ public class ShearCows implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        FabricDefaultAttributeRegistry.register(ModEntities.SHEARED_COW, ModShearedCowEntity.setAttributes());
+        FabricDefaultAttributeRegistry.register(ModEntities.SHEARED_COW, ShearedCowEntity.setAttributes());
         UseEntityCallback.EVENT.register(new ModEntityUseHandler());
 
         LOGGER.debug("Initialized mod: " + MOD_ID);
