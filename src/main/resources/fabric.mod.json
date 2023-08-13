@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "id": "shearcows",
+  "version": "${version}",
+  "name": "Shear Cows",
+  "description": "Allows you to Shear Cows for leather without killing them",
+  "authors": [
+    "static"
+  ],
+  "contact": {
+    "repo": "https://github.com/TheStaticVoid/Shear Cows"
+  },
+  "license": "MIT",
+  "icon": "assets/shearcows/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "dev.thestaticvoid.shearcows.ShearCows"
+    ],
+    "client": [
+      "dev.thestaticvoid.shearcows.client.ShearCowsClient"
+    ]
+  },
+  "mixins": [
+    "shearcows.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
