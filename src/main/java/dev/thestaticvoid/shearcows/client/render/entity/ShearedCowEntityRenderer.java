@@ -3,7 +3,6 @@ package dev.thestaticvoid.shearcows.client.render.entity;
 import dev.thestaticvoid.shearcows.ShearCows;
 import dev.thestaticvoid.shearcows.client.ShearCowsClient;
 import dev.thestaticvoid.shearcows.client.render.entity.model.ShearedCowEntityModel;
-import dev.thestaticvoid.shearcows.entity.ModEntities;
 import dev.thestaticvoid.shearcows.entity.ShearedCowEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

@@ -2,7 +2,6 @@ package dev.thestaticvoid.shearcows.entity;
 
 import dev.thestaticvoid.shearcows.ShearCows;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
-import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
