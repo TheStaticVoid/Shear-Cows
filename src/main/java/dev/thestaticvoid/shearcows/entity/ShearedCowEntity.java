@@ -130,8 +130,6 @@ public class ShearedCowEntity extends CowEntity {
     @Override
     public void onEatingGrass() {
         super.onEatingGrass();
-
-        // Animation is not currently played for the conversion
         if (!this.isBaby()) {
             CowEntity cow = new CowEntity(EntityType.COW, world);
             cow.copyPositionAndRotation(this);

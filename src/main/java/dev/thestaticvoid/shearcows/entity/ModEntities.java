@@ -10,8 +10,6 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
 public class ModEntities {
-    public static final EntityModelLayer SHEARED_COW_MODEL_LAYER = new EntityModelLayer(new Identifier(ShearCows.MOD_ID,
-            "sheared_cow"), "main");
     public static final EntityType<ShearedCowEntity> SHEARED_COW = Registry.register(
         Registry.ENTITY_TYPE, new Identifier(ShearCows.MOD_ID, "sheared_cow"),
             FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, ShearedCowEntity::new)

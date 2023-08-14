@@ -1,6 +1,7 @@
 package dev.thestaticvoid.shearcows.client.render.entity;
 
 import dev.thestaticvoid.shearcows.ShearCows;
+import dev.thestaticvoid.shearcows.client.ShearCowsClient;
 import dev.thestaticvoid.shearcows.client.render.entity.model.ShearedCowEntityModel;
 import dev.thestaticvoid.shearcows.entity.ModEntities;
 import dev.thestaticvoid.shearcows.entity.ShearedCowEntity;
@@ -16,7 +17,7 @@ public class ShearedCowEntityRenderer
     private static final Identifier TEXTURE = new Identifier(ShearCows.MOD_ID, "textures/entity/sheared_cow.png");
 
     public ShearedCowEntityRenderer(EntityRendererFactory.Context context) {
-        super(context, new ShearedCowEntityModel<>(context.getPart(ModEntities.SHEARED_COW_MODEL_LAYER)), 0.7f);
+        super(context, new ShearedCowEntityModel<>(context.getPart(ShearCowsClient.SHEARED_COW_MODEL_LAYER)), 0.7f);
     }
 
     @Override
