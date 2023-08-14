@@ -2,8 +2,6 @@ package dev.thestaticvoid.shearcows.mixin;
 
 import dev.thestaticvoid.shearcows.entity.ModEntities;
 import dev.thestaticvoid.shearcows.entity.ShearedCowEntity;
-import net.minecraft.client.particle.ExplosionSmokeParticle;
-import net.minecraft.client.particle.SpriteProvider;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.CowEntity;
