@@ -31,18 +31,18 @@ public abstract class CowEntityMixin extends AnimalEntity {
             ItemStack drops = new ItemStack(Items.LEATHER, 1 + this.getRandom().nextInt(2));
             this.dropStack(drops);
 
-            ShearedCowEntity newCow = new ShearedCowEntity(ModEntities.SHEARED_COW, world);
+            ShearedCowEntity newCow = new ShearedCowEntity(ModEntities.SHEARED_COW, getWorld());
             newCow.copyPositionAndRotation(this);
             newCow.setHealth(this.getHealth());
             if (this.hasCustomName()) {
                 newCow.setCustomName(this.getCustomName());
                 newCow.setCustomNameVisible(this.isCustomNameVisible());
             }
-            world.spawnEntity(newCow);
+            getWorld().spawnEntity(newCow);
 
             this.discard();
 
-            cir.setReturnValue(ActionResult.success(this.world.isClient));
+            cir.setReturnValue(ActionResult.success(this.getWorld().isClient));
         }
     }
 }

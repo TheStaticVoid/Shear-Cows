@@ -97,7 +97,7 @@ public class ShearedCowEntity extends CowEntity {
 
     @Override
     public void tickMovement() {
-        if (this.world.isClient) {
+        if (this.getWorld().isClient) {
             this.eatGrassTimer = Math.max(0, this.eatGrassTimer - 1);
         }
         super.tickMovement();
@@ -131,14 +131,14 @@ public class ShearedCowEntity extends CowEntity {
     public void onEatingGrass() {
         super.onEatingGrass();
         if (!this.isBaby()) {
-            CowEntity cow = new CowEntity(EntityType.COW, world);
+            CowEntity cow = new CowEntity(EntityType.COW, getWorld());
             cow.copyPositionAndRotation(this);
             cow.setHealth(this.getHealth());
             if (this.hasCustomName()) {
                 cow.setCustomName(this.getCustomName());
                 cow.setCustomNameVisible(this.isCustomNameVisible());
             }
-            world.spawnEntity(cow);
+            getWorld().spawnEntity(cow);
             this.discard();
         } else {
             this.growUp(60);
