@@ -9,6 +9,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
@@ -66,6 +68,16 @@ public class ShearedCowEntity extends CowEntity {
     @Override
     protected float getActiveEyeHeight(EntityPose pose, EntityDimensions dimensions) {
         return super.getActiveEyeHeight(pose, dimensions);
+    }
+
+    @Override
+    public ActionResult interactMob(PlayerEntity player, Hand hand) {
+        // Don't let the player reshear the cow
+        if (player.getStackInHand(hand).isOf(Items.SHEARS)) {
+            return ActionResult.SUCCESS;
+        } else {
+            return super.interactMob(player, hand);
+        }
     }
 
     @Override
